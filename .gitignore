@@ -1,0 +1,52 @@
+class Note:
+def __init__(self, title, content):
+self.title = title
+self.content = content
+
+class NotesManager:
+def __init__(self):
+self.notes = []
+
+def create_note(self, title, content):
+note = Note(title, content)
+self.notes.append(note)
+
+def save_notes(self, file_name):
+with open(file_name, 'w') as file:
+json.dump([note.__dict__ for note in self.notes], file)
+
+def load_notes(self, file_name):
+with open(file_name, 'r') as file:
+notes_data = json.load(file)
+self.notes = [Note(note_data['title'], note_data['content']) for note_data in notes_data]
+
+def read_notes(self):
+for i, note in enumerate(self.notes):
+print(f"{i+1}. {note.title}")
+
+def edit_note(self, note_index, new_title, new_content):
+if note_index len(self.notes):
+print("Invalid note index")
+return
+
+self.notes[note_index-1].title = new_title
+self.notes[note_index-1].content = new_content
+
+def delete_note(self, note_index):
+if note_index len(self.notes):
+print("Invalid note index")
+return
+
+del self.notes[note_index-1]
+
+def main():
+manager = NotesManager()
+
+while True:
+print("1. Create note")
+print("2. Save notes")
+print("3. Load notes")
+print("4. Read notes")
+print("5. Edit note")
+print("6. Delete note")
+print("0. Exit")
